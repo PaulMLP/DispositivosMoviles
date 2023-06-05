@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DispositivosMoviles</string>
+    <string name="nombre_app">Pedidos Online</string>
+    <string name="bienvenida">¡Hola! Es bueno verte nuevamente</string>
+    <string name="ingreso_boton">Ingresar</string>
+    <string name="mensaje_redes">O conéctese usando las redes sociales</string>
+    <string name="mensaje_olvido_contrasenia">¿Olvido su contraseha?</string>
+</resources>
