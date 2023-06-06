@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         initClass()
     }
-
     private fun initClass() {
 
         binding.btnIngreso.setOnClickListener {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tamanio">50dp</dimen>
+    <dimen name="buttom_height">48dp</dimen>
+    <dimen name="buttom_alternate_height">50dp</dimen>
+    <dimen name="buttom_widht">144dp</dimen>
+</resources>
