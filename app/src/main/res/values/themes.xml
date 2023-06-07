@@ -5,10 +5,8 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-
     <style name="Theme.DispositivosMoviles" parent="Base.Theme.DispositivosMoviles">
         <item name="fontFamily">@fontFamily/sans-serif-thin</item>
-        <item name="android:background">@color/white</item>
         <item name="android:textColor">@color/font_color</item>
     </style>
 
