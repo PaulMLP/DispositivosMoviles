@@ -1,11 +1,13 @@
-package com.programacion.dispositivosmoviles
+package com.programacion.dispositivosmoviles.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.programacion.dispositivosmoviles.R
 import com.programacion.dispositivosmoviles.databinding.ActivitySecondBinding
+import com.programacion.dispositivosmoviles.ui.fragments.FirstFragment
 
 class SecondActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySecondBinding
@@ -30,9 +32,19 @@ class SecondActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemReselectedListener { item ->
             when (item.itemId) {
                 R.id.item_1 -> {
+                    val frag = FirstFragment()
+                    val transacction = supportFragmentManager.beginTransaction()
+                    transacction.replace(binding.frmContainer.id, frag)
+                    transacction.addToBackStack(null)
+                    transacction.commit()
+                    true
+                }
+
+                R.id.item_2 -> {
+
                     var suma = 0
-                    for (i in listOf(8,10,14)){
-                        suma+=i
+                    for (i in listOf(8, 10, 14)) {
+                        suma += i
                     }
                     Snackbar.make(
                         binding.txtWelcome,
@@ -43,10 +55,11 @@ class SecondActivity : AppCompatActivity() {
                         .show()
                     true
                 }
-                R.id.item_2 -> {
+
+                R.id.item_3 -> {
                     var suma = 0
-                    for (i in listOf(10,16,23)){
-                        suma+=i
+                    for (i in listOf(10, 16, 23)) {
+                        suma += i
                     }
                     Snackbar.make(
                         binding.txtWelcome,
@@ -56,13 +69,14 @@ class SecondActivity : AppCompatActivity() {
                         .show()
                     true
                 }
+
                 else -> false
             }
         }
     }
 
     private fun initClass() {
-        binding.button4.setOnClickListener {
+        binding.btnReturn.setOnClickListener {
             var intent = Intent(
                 this,
                 MainActivity::class.java

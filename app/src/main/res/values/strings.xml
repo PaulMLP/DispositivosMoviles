@@ -8,4 +8,5 @@
     <string name="text_label_1">ETIQUETA 1</string>
     <string name="text_label_2">ETIQUETA 2</string>
     <string name="text_label_3">ETIQUETA 3</string>
+    <string name="title_fragment">First Fragment</string>
 </resources>

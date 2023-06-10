@@ -1,12 +1,11 @@
-package com.programacion.dispositivosmoviles
+package com.programacion.dispositivosmoviles.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
+import com.programacion.dispositivosmoviles.R
 import com.programacion.dispositivosmoviles.databinding.ActivityMainBinding
 import com.programacion.dispositivosmoviles.logic.validator.LoginValidator
 

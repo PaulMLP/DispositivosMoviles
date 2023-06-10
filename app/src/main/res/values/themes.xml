@@ -6,7 +6,6 @@
     </style>
 
     <style name="Theme.DispositivosMoviles" parent="Base.Theme.DispositivosMoviles">
-        <item name="fontFamily">@fontFamily/sans-serif-thin</item>
         <item name="android:textColor">@color/font_color</item>
     </style>
 

@@ -2,6 +2,8 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/alatsi</item>
+        <item>@font/cantora_one</item>
+        <item>@font/carrois_gothic_sc</item>
         <item>@font/roboto_mono</item>
         <item>@font/satisfy</item>
     </array>
