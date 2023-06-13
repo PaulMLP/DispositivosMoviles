@@ -8,6 +8,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.programacion.dispositivosmoviles.R
 import com.programacion.dispositivosmoviles.databinding.ActivitySecondBinding
 import com.programacion.dispositivosmoviles.ui.fragments.FirstFragment
+import com.programacion.dispositivosmoviles.ui.fragments.SecondFragment
+import com.programacion.dispositivosmoviles.ui.fragments.ThirdFragment
+import com.programacion.dispositivosmoviles.ui.utilities.FragmentsManager
 
 class SecondActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySecondBinding
@@ -20,59 +23,45 @@ class SecondActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d("UCE", "Loading...")
+        FragmentsManager().replaceFragment(
+            supportFragmentManager,
+            binding.frmContainer.id,
+            FirstFragment()
+        )
 
-        var name = "USUARIO"
-//        intent.extras.let {
-//            name = it?.getString("var1")!!
-//        }
-//        Log.d("UCE", "Hola ${name}")
-        binding.txtWelcome.text = "Bienvenido " + name
-        initClass()
+        //initClass()
         binding.bottomNavigation.setOnItemReselectedListener { item ->
             when (item.itemId) {
                 R.id.item_1 -> {
-                    val frag = FirstFragment()
-                    val transacction = supportFragmentManager.beginTransaction()
-                    transacction.replace(binding.frmContainer.id, frag)
-                    transacction.addToBackStack(null)
-                    transacction.commit()
+
                     true
                 }
 
                 R.id.item_2 -> {
-
-                    var suma = 0
-                    for (i in listOf(8, 10, 14)) {
-                        suma += i
-                    }
-                    Snackbar.make(
-                        binding.txtWelcome,
-                        "La suma es ${suma}",
-                        Snackbar.LENGTH_LONG
+                    FragmentsManager().replaceFragment(
+                        supportFragmentManager,
+                        binding.frmContainer.id,
+                        SecondFragment()
                     )
-                        .setBackgroundTint(getColor(R.color.snackbarColor))
-                        .show()
                     true
                 }
 
                 R.id.item_3 -> {
-                    var suma = 0
-                    for (i in listOf(10, 16, 23)) {
-                        suma += i
-                    }
-                    Snackbar.make(
-                        binding.txtWelcome,
-                        "La suma es ${suma}",
-                        Snackbar.LENGTH_LONG
-                    ).setBackgroundTint(getColor(R.color.snackbarColor))
-                        .show()
+                    FragmentsManager().replaceFragment(
+                        supportFragmentManager,
+                        binding.frmContainer.id,
+                        ThirdFragment()
+                    )
                     true
                 }
 
                 else -> false
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
     private fun initClass() {
