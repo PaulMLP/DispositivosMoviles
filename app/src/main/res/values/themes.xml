@@ -6,7 +6,7 @@
     </style>
 
     <style name="Theme.DispositivosMoviles" parent="Base.Theme.DispositivosMoviles">
-        <item name="android:textColor">@color/font_color</item>
+       <!--  <item name="android:textColor">@color/font_color</item>-->
     </style>
 
     <style name="textTitle">

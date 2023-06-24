@@ -65,13 +65,13 @@ class SecondActivity : AppCompatActivity() {
     }
 
     private fun initClass() {
-        binding.btnReturn.setOnClickListener {
-            var intent = Intent(
-                this,
-                MainActivity::class.java
-            )
+//        binding.btnReturn.setOnClickListener {
+//            var intent = Intent(
+//                this,
+//                MainActivity::class.java
+//            )
 //            startActivity(intent)
-        }
+//        }
     }
 
 }

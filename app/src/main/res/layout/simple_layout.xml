@@ -21,7 +21,7 @@
     android:id="@android:id/text1"
     style="?android:attr/spinnerItemStyle"
     android:singleLine="true"
-    android:textSize="18sp"
+    android:textSize="20sp"
     android:padding="5dp"
     android:textColor="@color/purple"
     android:layout_width="match_parent"

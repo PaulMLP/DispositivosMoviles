@@ -6,43 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.SecondActivity">
 
-    <Button
-        android:id="@+id/btn_return"
-        style="@style/ButtonGeneral"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:text="Volver"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWelcome"
-        app:layout_constraintVertical_bias="0.073"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/txtWelcome"
-        style="@style/textTitle"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:hint="Bienvenido nombre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <FrameLayout
-        android:id="@+id/frm_container"
-        android:layout_width="405dp"
-        android:layout_height="314dp"
-        android:layout_marginTop="8dp"
+        android:id="@+id/frmContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_return" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
