@@ -1,4 +1,4 @@
-package com.programacion.dispositivosmoviles.data.entities
+package com.programacion.dispositivosmoviles.data.marvel
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

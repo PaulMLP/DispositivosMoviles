@@ -1,6 +1,6 @@
 package com.programacion.dispositivosmoviles.logic.list
 
-import com.programacion.dispositivosmoviles.data.entities.MarvelChars
+import com.programacion.dispositivosmoviles.data.marvel.MarvelChars
 
 class ListItems {
     fun returnMarvelChars(): List<MarvelChars> {

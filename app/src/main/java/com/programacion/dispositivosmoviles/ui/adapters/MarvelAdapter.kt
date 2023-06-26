@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.programacion.dispositivosmoviles.R
-import com.programacion.dispositivosmoviles.data.entities.MarvelChars
+import com.programacion.dispositivosmoviles.data.marvel.MarvelChars
 import com.programacion.dispositivosmoviles.databinding.MarvelCharactersBinding
 import com.squareup.picasso.Picasso
 
