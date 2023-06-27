@@ -7,10 +7,14 @@ import com.programacion.dispositivosmoviles.data.marvel.MarvelChars
 class JikanAnimeLogic {
 
     suspend fun getAllAnimes(): List<MarvelChars> {
-        var call = ApiConnection.jikanConnection()
-        val response = call.create(JikanEndPoint::class.java).getAllAnimes()
 
         var itemList = arrayListOf<MarvelChars>()
+
+        val response = ApiConnection.getService(
+            ApiConnection.typeApi.Jikan,
+            JikanEndPoint::class.java
+        ).getAllAnimes()
+
         if (response.isSuccessful) {
             response.body()!!.data.forEach {
                 val m = MarvelChars(
