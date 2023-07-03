@@ -1,10 +1,7 @@
 package com.programacion.dispositivosmoviles.ui.activities
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import com.programacion.dispositivosmoviles.R
 import com.programacion.dispositivosmoviles.databinding.ActivitySecondBinding
 import com.programacion.dispositivosmoviles.ui.fragments.FirstFragment
@@ -33,7 +30,11 @@ class SecondActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemReselectedListener { item ->
             when (item.itemId) {
                 R.id.item_1 -> {
-
+                    FragmentsManager().replaceFragment(
+                        supportFragmentManager,
+                        binding.frmContainer.id,
+                        FirstFragment()
+                    )
                     true
                 }
 
