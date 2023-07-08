@@ -7,7 +7,7 @@ import com.programacion.dispositivosmoviles.databinding.ActivityDetailsMarvelIte
 import com.squareup.picasso.Picasso
 
 class DetailsMarvelItem : AppCompatActivity() {
-    private lateinit var binding : ActivityDetailsMarvelItemBinding
+    private lateinit var binding: ActivityDetailsMarvelItemBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,17 +17,26 @@ class DetailsMarvelItem : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-//        var name: String? = ""
+//        var name : String? = ""
 //        intent.extras?.let {
 //            name = it.getString("name")
+//
+//
 //        }
-//        if (!name.isNullOrEmpty()){
-//            binding.txtName.text =name
+//        if(!name.isNullOrEmpty()){
+//            binding.txtName.text= name
 //        }
-        val item = intent.getParcelableExtra<MarvelChars>("name")
+
+        //aqui recibimos los items de MarvelChars, pero ahora los tomamos como si fueran metadata Jikan
+        val item = intent.getParcelableExtra<MarvelChars>("item")
+
         if (item !== null){
-            binding.txtName.text=item.name
-            Picasso.get().load(item.image).into(binding.imgMarvel)
+            binding.txtName.text = item.name
+            binding.marveltitle.text = item.comic
+            Picasso.get().load(item.image).into(binding.imgImage)
+            binding.txtDescription.text = item.synopsis
+
         }
+
     }
 }

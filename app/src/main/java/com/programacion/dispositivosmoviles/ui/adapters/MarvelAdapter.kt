@@ -10,27 +10,30 @@ import com.programacion.dispositivosmoviles.databinding.MarvelCharactersBinding
 import com.squareup.picasso.Picasso
 
 class MarvelAdapter(
-    private var fnClick: (MarvelChars) -> Unit
+    private var items: List<MarvelChars>,
+    private var fnClick: (MarvelChars) -> Unit //no devuelve nada
 ) :
     RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
-
-    var dataSet: List<MarvelChars> = listOf()
-
+    //var items: List<MarvelChars> = listOf()
     class MarvelViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding: MarvelCharactersBinding = MarvelCharactersBinding.bind(view)
 
-        fun render(item: MarvelChars, fnClick: (MarvelChars) -> Unit) {
-            binding.comicName.text = item.name
-            binding.txtComic.text = item.comic
+        fun render(
+            item: MarvelChars,
+            fnClick: (MarvelChars) -> Unit
+        ) {
+            binding.comicName.text = item.name;
+            binding.txtComic.text = item.comic;
             Picasso.get().load(item.image).into(binding.imageView)
 
-            itemView
-            binding.imageView.setOnClickListener {
+            itemView.setOnClickListener {
+                //Snackbar.make(binding.imgMarvel, item.name, Snackbar.LENGTH_SHORT).show()
                 fnClick(item)
-                // Snackbar.make(binding.imgMarvel, item.name, Snackbar.LENGTH_SHORT).show()
             }
         }
+
+
     }
 
     override fun onCreateViewHolder(
@@ -38,16 +41,29 @@ class MarvelAdapter(
         viewType: Int
     ): MarvelAdapter.MarvelViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return MarvelViewHolder(inflater.inflate(R.layout.marvel_characters, parent, false))
+
+        return MarvelViewHolder(
+            inflater.inflate(
+                R.layout.marvel_characters,
+                parent, false
+            )
+        )
+
     }
 
     override fun onBindViewHolder(holder: MarvelAdapter.MarvelViewHolder, position: Int) {
-        holder.render(dataSet[position], fnClick)
+        holder.render(items[position], fnClick)
     }
 
-    override fun getItemCount(): Int = dataSet.size
-    fun updateListItems(newItems: List<MarvelChars>) {
-        this.dataSet = this.dataSet.plus(newItems)
+    override fun getItemCount(): Int = items.size
+
+    fun updateListAdapter(newitems: List<MarvelChars>) {
+        this.items = this.items.plus(newitems)
+        notifyDataSetChanged()
+    }
+
+    fun replaceListAdapter(newitems: List<MarvelChars>) {
+        this.items = newitems
         notifyDataSetChanged()
     }
 
