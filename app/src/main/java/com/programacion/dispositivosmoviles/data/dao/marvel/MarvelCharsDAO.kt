@@ -14,6 +14,6 @@ interface MarvelCharsDAO {
     @Query("select * from MarvelCharsDB where id=:id")
     fun getOneCharacter(id: Int): MarvelCharsDB
 
-//    @Insert
-//    fun
+    @Insert
+    fun insertMarvelCharacter(ch: List<MarvelCharsDB>)
 }

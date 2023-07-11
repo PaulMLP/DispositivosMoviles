@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.programacion.dispositivosmoviles.R
 import com.programacion.dispositivosmoviles.databinding.ActivityMainBinding
 import com.programacion.dispositivosmoviles.logic.validator.LoginValidator
+import com.programacion.dispositivosmoviles.ui.utilities.DispositivosMoviles
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         initClass()
+
+        val db = DispositivosMoviles.getDBInstance()
     }
     private fun initClass() {
 

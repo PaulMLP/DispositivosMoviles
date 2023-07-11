@@ -3,15 +3,18 @@ package com.programacion.dispositivosmoviles.logic.marvelLogic
 import android.util.Log
 import com.programacion.dispositivosmoviles.data.connections.ApiConnection
 import com.programacion.dispositivosmoviles.data.endpoints.MarvelEndPoint
+import com.programacion.dispositivosmoviles.data.entities.marvel.characters.database.MarvelCharsDB
+import com.programacion.dispositivosmoviles.data.entities.marvel.characters.database.getMarvelChar
 import com.programacion.dispositivosmoviles.data.entities.marvel.characters.getMarvelChars
 import com.programacion.dispositivosmoviles.data.marvel.MarvelChars
+import com.programacion.dispositivosmoviles.data.marvel.getMarvelCharsDB
+import com.programacion.dispositivosmoviles.ui.utilities.DispositivosMoviles
 
 class MarvelLogic {
 
     suspend fun getMarvelChars(name: String, limit: Int): ArrayList<MarvelChars> {
 
-        var itemList = arrayListOf<MarvelChars>()
-
+        val itemList = arrayListOf<MarvelChars>()
         val response = ApiConnection.getService(
             ApiConnection.typeApi.Marvel,
             MarvelEndPoint::class.java
@@ -63,5 +66,27 @@ class MarvelLogic {
         }
 
         return itemList
+    }
+
+    suspend fun getAllMarvelCharDB(): List<MarvelChars> {
+        val items: ArrayList<MarvelChars> = arrayListOf()
+        val items_aux = DispositivosMoviles.getDBInstance().marvelDao().getAllCharacters()
+        items_aux.forEach {
+            items.add(
+                it.getMarvelChar()
+            )
+        }
+        return items
+    }
+
+    suspend fun insertMarvelCharstoDB(items: List<MarvelChars>) {
+        val itemsDB = arrayListOf<MarvelCharsDB>()
+        items.forEach {
+            itemsDB.add(it.getMarvelCharsDB())
+        }
+        DispositivosMoviles
+            .getDBInstance()
+            .marvelDao()
+            .insertMarvelCharacter(itemsDB)
     }
 }

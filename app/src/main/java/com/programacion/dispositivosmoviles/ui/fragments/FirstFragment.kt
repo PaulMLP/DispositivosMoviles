@@ -66,10 +66,10 @@ class FirstFragment : Fragment() {
         )
 
         binding.spinner.adapter = adapter1
-        chargeDataRV(5)
+        chargeDataRVDB(5)
 
         binding.rvSwipe.setOnRefreshListener {
-            chargeDataRV(5)
+            chargeDataRVDB(5)
             binding.rvSwipe.isRefreshing = false
             lmanager.scrollToPositionWithOffset(5, 20)
         }
@@ -132,26 +132,60 @@ class FirstFragment : Fragment() {
         startActivity(i)
     }
 
-    fun chargeDataRV(pos: Int) {
+    fun chargeDataRVAPI(pos: Int) {
         lifecycleScope.launch(Dispatchers.Main) {
             //rvAdapter.items = JikanAnimeLogic().getAllAnimes()
             marvelCharsItems = withContext(Dispatchers.IO) {
-                return@withContext MarvelLogic().getAllMarvelChars(0, 99)
+                return@withContext (MarvelLogic().getAllMarvelChars(0, 99))
             }
-
 
             rvAdapter.items = marvelCharsItems
 
             binding.rvMarvelChars.apply {
                 this.adapter = rvAdapter;
                 this.layoutManager = gManager;
-
-
                 //lmanager.scrollToPositionWithOffset(pos, 10)
             }
         }
         page++
     }
 
+    fun chargeDataRVDB(pos: Int) {
+
+        lifecycleScope.launch(Dispatchers.Main) {
+
+            marvelCharsItems = withContext(Dispatchers.IO) {
+
+                var items = MarvelLogic().getAllMarvelCharDB().toMutableList()
+
+                if (items.isEmpty()) {
+                    items = (MarvelLogic().getAllMarvelChars(
+                        0, page * 3
+                    ))
+
+
+                    MarvelLogic().insertMarvelCharstoDB(items)
+
+                }
+                return@withContext items
+            }
+
+        }
+        /*withContext(Dispatchers.IO){
+        }
+        */
+        rvAdapter.items = marvelCharsItems
+
+        binding.rvMarvelChars.apply {
+            this.adapter = rvAdapter;
+            this.layoutManager = gManager;
+
+
+            gManager.scrollToPositionWithOffset(pos, 10)
+        }
+
+        page++
+    }
 
 }
+
