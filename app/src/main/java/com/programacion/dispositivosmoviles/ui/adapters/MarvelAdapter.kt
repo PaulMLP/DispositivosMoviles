@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso
 
 class MarvelAdapter(
     //private var items: List<MarvelChars>,
-    private var fnClick: (MarvelChars) -> Unit, //no devuelve nada
+    private var fnClick: (MarvelChars) -> Unit,
     private var fnSave: (MarvelChars) -> Boolean
 ) :
     RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
@@ -56,7 +56,7 @@ class MarvelAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: MarvelAdapter.MarvelViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MarvelViewHolder, position: Int) {
         holder.render(items[position], fnClick, fnSave)
     }
 

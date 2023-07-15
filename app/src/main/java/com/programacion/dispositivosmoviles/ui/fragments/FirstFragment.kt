@@ -2,33 +2,41 @@ package com.programacion.dispositivosmoviles.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.programacion.dispositivosmoviles.data.entities.marvel.characters.database.MarvelCharsDB
 import com.programacion.dispositivosmoviles.data.marvel.MarvelChars
 import com.programacion.dispositivosmoviles.data.marvel.getMarvelCharsDB
 import com.programacion.dispositivosmoviles.databinding.FragmentFirstBinding
 import com.programacion.dispositivosmoviles.logic.marvelLogic.MarvelLogic
 import com.programacion.dispositivosmoviles.ui.activities.DetailsMarvelItem
+import com.programacion.dispositivosmoviles.ui.activities.dataStore
 import com.programacion.dispositivosmoviles.ui.adapters.MarvelAdapter
+import com.programacion.dispositivosmoviles.ui.data.UserDataStore
 import com.programacion.dispositivosmoviles.ui.utilities.DispositivosMoviles
 import com.programacion.dispositivosmoviles.ui.utilities.Metodos
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FirstFragment : Fragment() {
 
     private lateinit var binding: FragmentFirstBinding;
-    private var rvAdapter: MarvelAdapter = MarvelAdapter { sendMarvelItem(it) }
+    private var rvAdapter: MarvelAdapter = MarvelAdapter(
+        { item -> sendMarvelItem(item) }
+    ) { item -> saveMarvelItem(item) }
+
     private lateinit var lmanager: LinearLayoutManager
 
     private val limit = 99
@@ -63,6 +71,14 @@ class FirstFragment : Fragment() {
     override fun onStart() {
         super.onStart();
 
+        lifecycleScope.launch(Dispatchers.Main) {
+            getDataStore().collect {user->
+                //binding.txtFilter.text = it
+                Log.d("UCE",user.name)
+                Log.d("UCE",user.email)
+                Log.d("UCE",user.session)
+            }
+        }
 
         val names = arrayListOf<String>("A", "B", "C", "D", "E")
 
@@ -131,6 +147,15 @@ class FirstFragment : Fragment() {
             binding.cardView.radius
         }
     }
+
+    private fun getDataStore() =
+        requireActivity().dataStore.data.map { prefs ->
+            UserDataStore(
+                name = prefs[stringPreferencesKey("usuario")].orEmpty(),
+                email = prefs[stringPreferencesKey("email")].orEmpty(),
+                session = prefs[stringPreferencesKey("session")].orEmpty(),
+            )
+        }
 
     fun sendMarvelItem(item: MarvelChars) {
         //Intent(contexto de la activity, .class de la activity)

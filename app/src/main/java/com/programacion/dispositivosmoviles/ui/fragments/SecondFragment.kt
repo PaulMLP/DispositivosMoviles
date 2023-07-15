@@ -14,18 +14,22 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.programacion.dispositivosmoviles.data.marvel.MarvelChars
+import com.programacion.dispositivosmoviles.data.marvel.getMarvelCharsDB
 import com.programacion.dispositivosmoviles.databinding.FragmentFirstBinding
 import com.programacion.dispositivosmoviles.databinding.FragmentSecondBinding
 import com.programacion.dispositivosmoviles.logic.marvelLogic.MarvelLogic
 import com.programacion.dispositivosmoviles.ui.activities.DetailsMarvelItem
 import com.programacion.dispositivosmoviles.ui.adapters.MarvelAdapter
+import com.programacion.dispositivosmoviles.ui.utilities.DispositivosMoviles
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SecondFragment : Fragment() {
     private lateinit var binding: FragmentSecondBinding
-    private var rvAdapter: MarvelAdapter = MarvelAdapter { sendMarvelItem(it) }
+    private var rvAdapter: MarvelAdapter = MarvelAdapter(
+        { item -> sendMarvelItem(item) }
+    ) { item -> saveMarvelItem(item) }
     private lateinit var lmanager: LinearLayoutManager
     private var page = 1
     private lateinit var gManager: GridLayoutManager
@@ -131,6 +135,19 @@ class SecondFragment : Fragment() {
         i.putExtra("item", item)//mandamos los items a la otra activity
         startActivity(i)
     }
+
+    fun saveMarvelItem(item: MarvelChars): Boolean {
+        lifecycleScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
+                DispositivosMoviles
+                    .getDBInstance()
+                    .marvelDao()
+                    .insertMarvelCharacter(listOf(item.getMarvelCharsDB()))
+            }
+        }
+        return item !== null
+    }
+
 
     fun chargeDataRV(pos: Int) {
         lifecycleScope.launch(Dispatchers.Main) {
