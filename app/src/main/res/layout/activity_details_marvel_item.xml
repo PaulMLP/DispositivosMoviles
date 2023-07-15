@@ -5,63 +5,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.activities.DetailsMarvelItem">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txtName"
+        <LinearLayout
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="25dp"
-            android:fontFamily="@font/satisfy"
-            android:background="@color/fb_color"
-            android:textAlignment="center"
-            android:textColor="@color/red"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.activities.DetailsMarvelItem">
 
-        <ImageView
-            android:id="@+id/imgImage"
-            android:layout_width="351dp"
-            android:layout_height="229dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="35dp"
-            android:layout_marginBottom="20dp">
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="25dp"
+                android:background="@color/fb_color"
+                android:fontFamily="@font/satisfy"
+                android:textAlignment="center"
+                android:textColor="@color/red"
+                android:textSize="32sp"
+                android:textStyle="bold" />
 
-
-        </ImageView>
-
-        <TextView
-            android:id="@+id/marveltitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/satisfy"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="bold">
+            <ImageView
+                android:id="@+id/imgImage"
+                android:layout_width="351dp"
+                android:layout_height="229dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="20dp">
 
 
-        </TextView>
+            </ImageView>
 
-        <TextView
-            android:id="@+id/txtDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="italic" />
+            <TextView
+                android:id="@+id/marveltitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/satisfy"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold">
 
-    </LinearLayout>
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/txtDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

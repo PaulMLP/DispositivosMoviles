@@ -9,27 +9,33 @@ import com.programacion.dispositivosmoviles.R
 import com.programacion.dispositivosmoviles.data.marvel.MarvelChars
 import com.programacion.dispositivosmoviles.databinding.MarvelCharactersBinding
 import com.squareup.picasso.Picasso
+
 class MarvelAdapter(
     //private var items: List<MarvelChars>,
-    private var fnClick: (MarvelChars) -> Unit //no devuelve nada
+    private var fnClick: (MarvelChars) -> Unit, //no devuelve nada
+    private var fnSave: (MarvelChars) -> Boolean
 ) :
     RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
     var items: List<MarvelChars> = listOf()
+
     class MarvelViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding: MarvelCharactersBinding = MarvelCharactersBinding.bind(view)
 
         fun render(
             item: MarvelChars,
-            fnClick: (MarvelChars) -> Unit
+            fnClick: (MarvelChars) -> Unit,
+            fnSave: (MarvelChars) -> Boolean
         ) {
             binding.comicName.text = item.name;
             binding.txtComic.text = item.comic;
             Picasso.get().load(item.image).into(binding.imageView)
 
-            itemView.setOnClickListener{
-                //Snackbar.make(binding.imgMarvel, item.name, Snackbar.LENGTH_SHORT).show()
+            itemView.setOnClickListener {
                 fnClick(item)
+            }
+            binding.btnSave.setOnContextClickListener {
+                fnSave(item)
             }
         }
 
@@ -48,23 +54,22 @@ class MarvelAdapter(
                 parent, false
             )
         )
-
     }
 
     override fun onBindViewHolder(holder: MarvelAdapter.MarvelViewHolder, position: Int) {
-        holder.render(items[position], fnClick)
+        holder.render(items[position], fnClick, fnSave)
     }
 
     override fun getItemCount(): Int = items.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateListAdapter(newitems : List<MarvelChars>){
+    fun updateListAdapter(newitems: List<MarvelChars>) {
         this.items = this.items.plus(newitems)
         notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun replaceListAdapter(newitems : List<MarvelChars>){
+    fun replaceListAdapter(newitems: List<MarvelChars>) {
         this.items = newitems
         notifyDataSetChanged()
     }
