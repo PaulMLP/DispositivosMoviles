@@ -74,7 +74,7 @@ class FirstFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Main) {
             getDataStore().collect {user->
                 //binding.txtFilter.text = it
-                Log.d("UCE",user.name)
+                Log.d("UCE","nombre: "+user.name)
                 Log.d("UCE",user.email)
                 Log.d("UCE",user.session)
             }

@@ -15,4 +15,6 @@
     <color name="snackbarColor">#DA678E</color>
     <color name="purple">#8346AA</color>
     <color name="yellow">#ffcb50</color>
+    <color name="greenOk">#9DE454</color>
+    <color name="orange">#FF9800</color>
 </resources>
