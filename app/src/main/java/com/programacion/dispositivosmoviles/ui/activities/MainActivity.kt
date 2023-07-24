@@ -1,10 +1,11 @@
 package com.programacion.dispositivosmoviles.ui.activities
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import android.location.Geocoder
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import androidx.activity.result.contract.ActivityResultContracts.*
@@ -15,6 +16,8 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import com.programacion.dispositivosmoviles.R
 import com.programacion.dispositivosmoviles.databinding.ActivityMainBinding
@@ -32,12 +35,15 @@ val Context.dataStore: DataStore<Preferences>
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     override fun onStart() {
@@ -47,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         val db = DispositivosMoviles.getDBInstance()
     }
 
+    @SuppressLint("MissingPermission")
     private fun initClass() {
 
         binding.btnIngreso.setOnClickListener {
@@ -80,17 +87,6 @@ class MainActivity : AppCompatActivity() {
                     .show()
             }
         }
-        binding.btnLoginTwitter.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                //Uri.parse("http://google.com.ec")
-                //Uri.parse("geo: -0.2006288, -78.5786066")
-                //Uri.parse("tel:012345678")
-                Uri.parse("https://m.youtube.com/watch?v=5wJUMAU5O-8&pp=ygUWcGFvbG8gbGFkaW5vIHZvbHVtZW4gMg%3D%3D")
-            )
-            startActivity(intent)
-        }
-
         val appResultLocal = registerForActivityResult(StartActivityForResult()) { resultActivity ->
             var color = R.color.grey
             val message = when (resultActivity.resultCode) {
@@ -160,19 +156,86 @@ class MainActivity : AppCompatActivity() {
             sn.setBackgroundTint(getColor(color))
             sn.show()
         }
-        binding.btnLoginFacebook.setOnClickListener {
-//            val intent = Intent(
-//                Intent.ACTION_WEB_SEARCH
-//            )
-//            intent.setClassName(
-//                "com.google.android.googlequicksearchbox",
-//                "com.google.android.googlequicksearchbox.SearchActivity"
-//            )
-//            intent.putExtra(SearchManager.QUERY, "UCE")
-//            //https://api.whatsapp.com/send?phone=593%20&text=
 
-//            val resIntent = Intent(this, ResultActivity::class.java)
-//            appResultLocal.launch(resIntent)
+        val locationContract =
+            registerForActivityResult(RequestPermission()) { isGaranted ->
+                when (isGaranted) {
+                    true -> {
+
+                        fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+                            it.longitude
+                            it.latitude
+
+                            val a = Geocoder(this)
+                            a.getFromLocation(it.latitude, it.longitude, 1)
+                        }
+                        //donde ha estado la última vez el usuario
+                        /* val task = fusedLocationProviderClient.lastLocation
+                         task.addOnSuccessListener { location ->
+                             if (task.result != null) {
+                                 Snackbar.make(
+                                     binding.imageView,
+                                     "${location.latitude},${location.longitude}",
+                                     Snackbar.LENGTH_LONG
+                                 )
+                                     .show()
+                             } else {
+                                 Snackbar.make(
+                                     binding.imageView,
+                                     "Encienda el GPS",
+                                     Snackbar.LENGTH_LONG
+                                 )
+                                     .show()
+                             }
+                         }*/
+                    }
+
+                    shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) -> {
+
+                        /*Snackbar.make(
+                                binding.imageView,
+                                "Ayude con el permiso",
+                                Snackbar.LENGTH_LONG
+                            )
+                                .show()*/
+                    }
+
+                    false -> {
+                        Snackbar.make(binding.imageView, "Denegado", Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+        binding.btnLoginTwitter.setOnClickListener {
+            locationContract.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+
+            /* val intent = Intent(
+                 Intent.ACTION_VIEW,
+                 Uri.parse("https://twitter.com/?lang=es")
+             )*/
+
+            /*val intent = Intent(
+                Intent.ACTION_WEB_SEARCH
+            )
+            intent.setClassName(
+                "com.google.android.googlequicksearchbox",
+                "com.google.android.googlequicksearchbox.SearchActivity"
+            )
+            intent.putExtra(SearchManager.QUERY, "UCE")
+            startActivity(intent)*/
+            //https://api.whatsapp.com/send?phone=593&text=
+        }
+
+
+        binding.btnLoginFacebook.setOnClickListener {
+            /*val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://es-la.facebook.com/")
+            )*/
+
+            //startActivity(intent)
+
+            /*val resIntent = Intent(this, ResultActivity::class.java)
+            appResultLocal.launch(resIntent)*/
 
             val intentSpeech = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             intentSpeech.putExtra(
@@ -185,10 +248,39 @@ class MainActivity : AppCompatActivity() {
             )
             intentSpeech.putExtra(
                 RecognizerIntent.EXTRA_PROMPT,
-                "Di algo ..."
+                "Habla Moreira"
             )
             speechToText.launch(intentSpeech)
         }
+
+//            val intent = Intent(
+//                Intent.ACTION_WEB_SEARCH
+//            )
+//            intent.setClassName(
+//                "com.google.android.googlequicksearchbox",
+//                "com.google.android.googlequicksearchbox.SearchActivity"
+//            )
+//            intent.putExtra(SearchManager.QUERY, "UCE")
+//            //https://api.whatsapp.com/send?phone=593%20&text=
+
+//            val resIntent = Intent(this, ResultActivity::class.java)
+//            appResultLocal.launch(resIntent)
+        //}
+
+        val intentSpeech = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intentSpeech.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
+        intentSpeech.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE,
+            Locale.getDefault()
+        )
+        intentSpeech.putExtra(
+            RecognizerIntent.EXTRA_PROMPT,
+            "Di algo ..."
+        )
+        speechToText.launch(intentSpeech)
     }
 
     private suspend fun saveDataStore(stringData: String) {

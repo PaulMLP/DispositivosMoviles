@@ -5,6 +5,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+<!--    permisos de ubicacion-->
+<!--    general-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<!--    fina-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".ui.utilities.DispositivosMoviles"
         android:allowBackup="true"
