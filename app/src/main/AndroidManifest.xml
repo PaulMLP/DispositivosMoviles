@@ -3,12 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
-<!--    permisos de ubicacion-->
-<!--    general-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<!--    fina-->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- permisos de ubicacion -->
+    <!-- general -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- fina -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -24,6 +21,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.ResultActivity"
             android:exported="false" />
         <activity
@@ -33,7 +33,7 @@
             android:name=".ui.activities.SecondActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".ui.activities.CameraActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

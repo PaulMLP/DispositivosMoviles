@@ -7,13 +7,52 @@
     tools:context=".ui.activities.MainActivity">
 
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="144dp"
+        android:layout_height="122dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_edi" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/tamanio"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="@dimen/tamanio"
+        android:backgroundTint="@color/light_grey"
+        android:hint="* * * * * * * * * * *"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelContrasenia" />
+
+    <TextView
+        android:id="@+id/mensajeRedes"
+        style="@style/mensaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/mensaje_redes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnIngreso" />
+
     <TextView
         android:id="@+id/nombreApp"
         style="@style/textTitle"
         android:layout_width="308dp"
         android:layout_height="40dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="152dp"
         android:gravity="left"
         android:longClickable="true"
         android:text="@string/nombre_app"
@@ -23,78 +62,63 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/mensajeBienvenida"
-        style="@style/mensaje"
+        android:id="@+id/textCorreo"
+        style="@style/etiquetas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/bienvenida"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:text="Correo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombreApp" />
-
-    <TextView
-        android:id="@+id/mensajeRedes"
-        style="@style/mensaje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/mensaje_redes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnIngreso" />
+        app:layout_constraintTop_toBottomOf="@+id/mensajeBienvenida" />
 
     <TextView
         android:id="@+id/mensaje_recuperar_contrasenia"
         style="@style/mensaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="20dp"
         android:text="@string/mensaje_olvido_contrasenia"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLoginTwitter" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLoginTwitter"
+        app:layout_constraintVertical_bias="0.058" />
 
-    <TextView
-        android:id="@+id/textCorreo"
-        style="@style/etiquetas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="310dp"
+        android:layout_height="48dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="28dp"
-        android:text="Correo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mensajeBienvenida" />
-
-    <TextView
-        android:id="@+id/labelContrasenia"
-        style="@style/etiquetas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="380dp"
-        android:text="Contraseña"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/labelRegistro"
-        style="@style/etiquetas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
-        android:text="Registrese"
+        android:backgroundTint="@color/light_grey"
+        android:hint="example@email.com"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLoginFacebook" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textCorreo" />
+
+    <TextView
+        android:id="@+id/mensajeBienvenida"
+        style="@style/mensaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/bienvenida"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombreApp" />
 
     <Button
         android:id="@+id/btnLoginFacebook"
         style="@style/ButtonFacebook"
         android:layout_width="@dimen/buttom_widht"
         android:layout_height="@dimen/buttom_alternate_height"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
         android:drawableLeft="@drawable/facebook"
         android:text="Facebook"
         android:textSize="15sp"
@@ -103,74 +127,56 @@
         tools:ignore="MissingConstraints" />
 
     <Button
+        android:id="@+id/btnIngreso"
+        style="@style/ButtonIngreso"
+        android:layout_width="300dp"
+        android:layout_height="@dimen/buttom_height"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="@string/ingreso_boton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pass"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/labelRegistro"
+        style="@style/etiquetas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="44dp"
+        android:text="Registrese"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLoginFacebook"
+        app:layout_constraintVertical_bias="0.058" />
+
+    <TextView
+        android:id="@+id/labelContrasenia"
+        style="@style/etiquetas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="352dp"
+        android:text="Contraseña"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btnLoginTwitter"
         style="@style/ButtonTwitter"
         android:layout_width="@dimen/buttom_widht"
         android:layout_height="@dimen/buttom_alternate_height"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
         android:drawableLeft="@drawable/twitter"
         android:text="Twitter"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mensajeRedes"
         tools:ignore="MissingConstraints" />
-
-
-    <Button
-        android:id="@+id/btnIngreso"
-        style="@style/ButtonIngreso"
-        android:layout_width="300dp"
-        android:layout_height="@dimen/buttom_height"
-        android:layout_marginTop="25dp"
-        android:gravity="center"
-        android:text="@string/ingreso_boton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pass"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_edi" />
-
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="310dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
-        android:hint="example@email.com"
-        android:backgroundTint="@color/light_grey"
-        android:textColorHint="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCorreo" />
-
-    <EditText
-        android:id="@+id/pass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="@dimen/tamanio"
-        android:layout_marginRight="@dimen/tamanio"
-        android:backgroundTint="@color/light_grey"
-        android:hint="* * * * * * * * * * *"
-        android:textColorHint="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelContrasenia" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
