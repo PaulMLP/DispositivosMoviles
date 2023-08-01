@@ -1,20 +1,24 @@
 package com.programacion.dispositivosmoviles.ui.activities
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.google.android.material.snackbar.Snackbar
 import com.programacion.dispositivosmoviles.R
 import com.programacion.dispositivosmoviles.databinding.ActivityNotificationBinding
+import com.programacion.dispositivosmoviles.ui.utilities.BroadcasterNotifications
+import java.util.Calendar
+import java.util.Date
 
 class NotificationActivity : AppCompatActivity() {
 
@@ -28,26 +32,38 @@ class NotificationActivity : AppCompatActivity() {
             //createNotificationChannel()
             sendNotification()
         }
+
+        binding.btnNotificationProgramada.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val hora = binding.timePicker.hour
+            val minutes = binding.timePicker.minute
+
+            Toast.makeText(
+                this,
+                "La notificacion se activara a las $hora con $minutes",
+                Toast.LENGTH_SHORT).show()
+            calendar.set(Calendar.HOUR, hora)
+            calendar.set(Calendar.MINUTE,minutes)
+            calendar.set(Calendar.SECOND,0)
+            sendNotificationTimePicker(calendar.timeInMillis)
+        }
     }
 
     private val CHANNEL: String = "Notificaciones"
 
-    private fun createNotificationChannel() {
+    private fun createNotificationChannel(time:Long) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Aviso"
-            val descriptionText = "Notificaciones simples de aviso"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            //Que se cree en el sistema este canal
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+        val name = "Aviso"
+        val descriptionText = "Notificaciones simples de aviso"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(CHANNEL, name, importance).apply {
+            description = descriptionText
         }
+        // Register the channel with the system
+        val notificationManager: NotificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
     @SuppressLint("MissingPermission")
@@ -71,9 +87,19 @@ class NotificationActivity : AppCompatActivity() {
             )
         }
 
-
         with(NotificationManagerCompat.from(this)) {
             notify(1, noti.build())
         }
+    }
+
+    private fun sendNotificationTimePicker(time: Long) {
+        val myIntent = Intent(applicationContext, BroadcasterNotifications::class.java)
+        val myPendingIntent = PendingIntent.getBroadcast(
+            applicationContext, 0, myIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, myPendingIntent) //Nos ayuda a que el sistema se levante
+
     }
 }
