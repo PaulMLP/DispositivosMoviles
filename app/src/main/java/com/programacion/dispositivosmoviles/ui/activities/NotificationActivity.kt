@@ -7,18 +7,15 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.google.android.material.snackbar.Snackbar
 import com.programacion.dispositivosmoviles.R
 import com.programacion.dispositivosmoviles.databinding.ActivityNotificationBinding
 import com.programacion.dispositivosmoviles.ui.utilities.BroadcasterNotifications
 import java.util.Calendar
-import java.util.Date
 
 class NotificationActivity : AppCompatActivity() {
 
@@ -41,17 +38,18 @@ class NotificationActivity : AppCompatActivity() {
             Toast.makeText(
                 this,
                 "La notificacion se activara a las $hora con $minutes",
-                Toast.LENGTH_SHORT).show()
+                Toast.LENGTH_SHORT
+            ).show()
             calendar.set(Calendar.HOUR, hora)
-            calendar.set(Calendar.MINUTE,minutes)
-            calendar.set(Calendar.SECOND,0)
+            calendar.set(Calendar.MINUTE, minutes)
+            calendar.set(Calendar.SECOND, 0)
             sendNotificationTimePicker(calendar.timeInMillis)
         }
     }
 
     private val CHANNEL: String = "Notificaciones"
 
-    private fun createNotificationChannel(time:Long) {
+    private fun createNotificationChannel(time: Long) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         val name = "Aviso"
@@ -99,7 +97,11 @@ class NotificationActivity : AppCompatActivity() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, myPendingIntent) //Nos ayuda a que el sistema se levante
+        alarmManager.setExact(
+            AlarmManager.RTC_WAKEUP,
+            time,
+            myPendingIntent
+        ) //Nos ayuda a que el sistema se levante
 
     }
 }
