@@ -6,27 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.BiometricActivity">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/lyMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:gravity="center"
-        android:text="Autenticacion biométrica"
-        app:layout_constraintBottom_toTopOf="@id/boton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.963" />
-
-    <ImageView
-        android:id="@+id/boton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_fingerprint_24"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="Autenticacion biométrica"
+            android:textSize="40sp" />
+
+        <ImageView
+            android:id="@+id/boton"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_fingerprint_24" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyMainCopia"
+        app:auto_start="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+           <include layout="@layout/shimmer_layout_biometric"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
