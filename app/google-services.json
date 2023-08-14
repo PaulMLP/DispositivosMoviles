@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "545665054908",
+    "project_id": "dispositivos-moviles-e2117",
+    "storage_bucket": "dispositivos-moviles-e2117.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545665054908:android:384a55a64e6690981938b9",
+        "android_client_info": {
+          "package_name": "com.programacion.dispositivosmoviles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545665054908-o6t9ee1idum89uaimfpvoo981nlp2hme.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVkxI2mUol5cjAnIBUl6yH-wl53veSIpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545665054908-o6t9ee1idum89uaimfpvoo981nlp2hme.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

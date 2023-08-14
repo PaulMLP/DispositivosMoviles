@@ -12,6 +12,7 @@ import android.os.Looper
 import android.provider.Settings
 import android.speech.RecognizerIntent
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult.*
 import androidx.appcompat.app.AlertDialog
@@ -33,6 +34,9 @@ import com.google.android.gms.location.LocationSettingsStatusCodes
 import com.google.android.gms.location.Priority
 import com.google.android.gms.location.SettingsClient
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.programacion.dispositivosmoviles.R
 import com.programacion.dispositivosmoviles.databinding.ActivityMainBinding
 import com.programacion.dispositivosmoviles.logic.validator.LoginValidator
@@ -59,6 +63,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var client: SettingsClient
     private lateinit var locationSettingsRequest: LocationSettingsRequest
 
+    private lateinit var auth: FirebaseAuth
 
     private var currentLocation: Location? = null
 
@@ -221,8 +226,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        auth = Firebase.auth
 
+        binding.btnIngreso.setOnClickListener {
+            authWithFirebaseEmail(
+                binding.textCorreo.text.toString(),
+                binding.labelContrasenia.text.toString()
+            )
+        }
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         locationRequest = LocationRequest.Builder(
             Priority.PRIORITY_HIGH_ACCURACY, 1000
@@ -254,6 +267,49 @@ class MainActivity : AppCompatActivity() {
             .build()
     }
 
+    private fun authWithFirebaseEmail(email: String, password: String) {
+        Log.d("UCE", email)
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("UCE", "createUserWithEmail:success")
+                    val user = auth.currentUser
+                    // updateUI(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("UCE", "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                    //  updateUI(null)
+                }
+            }
+    }
+
+    private fun signInWithEmailAndPassword(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("UCE", "signInWithEmail:success")
+                    val user = auth.currentUser
+                    //updateUI(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("UCE", "signInWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                   // updateUI(null)
+                }
+            }
+    }
+
     override fun onStart() {
         super.onStart()
         initClass()
@@ -265,36 +321,36 @@ class MainActivity : AppCompatActivity() {
     private fun initClass() {
 
         binding.btnIngreso.setOnClickListener {
-            val check = LoginValidator().checkLogin(
+            authWithFirebaseEmail(
                 binding.name.text.toString(),
                 binding.pass.text.toString()
             )
-
-            if (check) {
-
-                lifecycleScope.launch(Dispatchers.IO) {
-                    saveDataStore(binding.name.text.toString())
-                }
-
-
-                val intent = Intent(
-                    this,
-                    SecondActivity::class.java
-                )
-                intent.putExtra(
-                    "var1",
-                    binding.name.text.toString()
-                )
-                startActivity(intent)
-            } else {
-                Snackbar.make(
-                    binding.labelRegistro,
-                    "Usuario o contraseña invalida",
-                    Snackbar.LENGTH_LONG
-                )
-                    .setTextColor(getColor(R.color.red))
-                    .show()
-            }
+//
+//            if (check) {
+//
+//                lifecycleScope.launch(Dispatchers.IO) {
+//                    saveDataStore(binding.name.text.toString())
+//                }
+//
+//
+//                val intent = Intent(
+//                    this,
+//                    SecondActivity::class.java
+//                )
+//                intent.putExtra(
+//                    "var1",
+//                    binding.name.text.toString()
+//                )
+//                startActivity(intent)
+//            } else {
+//                Snackbar.make(
+//                    binding.labelRegistro,
+//                    "Usuario o contraseña invalida",
+//                    Snackbar.LENGTH_LONG
+//                )
+//                    .setTextColor(getColor(R.color.red))
+//                    .show()
+//            }
         }
 
 
