@@ -86,12 +86,6 @@ Proyecto final individual de dispositivos móviles.
 |----------|:-------------:|:-------------:
 | ![locacion_permiso](screenshots/locacion_permiso.png) | ![locacion](screenshots/locacion.png) |![busqueda](screenshots/speach_to_text.png) |
 
-## Uso
-1. Ejecuta la aplicación en un emulador o dispositivo Android.
-2. Regístrate o inicia sesión con tu cuenta de Firebase.
-3. Explora las diferentes características y funcionalidades de la aplicación.
-
-
 ## Instalación
 
 1. Clona este repositorio: `git clone https://github.com/PaulMLP/DispositivosMoviles.git`
