@@ -17,16 +17,6 @@ class DetailsMarvelItem : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-//        var name : String? = ""
-//        intent.extras?.let {
-//            name = it.getString("name")
-//
-//
-//        }
-//        if(!name.isNullOrEmpty()){
-//            binding.txtName.text= name
-//        }
-
         //aqui recibimos los items de MarvelChars, pero ahora los tomamos como si fueran metadata Jikan
         val item = intent.getParcelableExtra<MarvelChars>("item")
 

@@ -17,4 +17,7 @@
     <color name="yellow">#ffcb50</color>
     <color name="greenOk">#9DE454</color>
     <color name="orange">#FF9800</color>
+    <color name="gris_oscuro">#333</color>
+    <color name="dark_blue">#3B436E</color>
+
 </resources>

@@ -1,15 +1,15 @@
 package com.programacion.dispositivosmoviles.ui.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,17 +19,15 @@ import com.programacion.dispositivosmoviles.data.marvel.getMarvelCharsDB
 import com.programacion.dispositivosmoviles.databinding.FragmentFirstBinding
 import com.programacion.dispositivosmoviles.logic.marvelLogic.MarvelLogic
 import com.programacion.dispositivosmoviles.ui.activities.DetailsMarvelItem
-import com.programacion.dispositivosmoviles.ui.activities.dataStore
 import com.programacion.dispositivosmoviles.ui.adapters.MarvelAdapter
-import com.programacion.dispositivosmoviles.ui.data.UserDataStore
 import com.programacion.dispositivosmoviles.ui.utilities.DispositivosMoviles
 import com.programacion.dispositivosmoviles.ui.utilities.Metodos
+import com.programacion.dispositivosmoviles.ui.viewmodels.FragmentViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@Suppress("UNREACHABLE_CODE")
 class FirstFragment : Fragment() {
 
     private lateinit var binding: FragmentFirstBinding;
@@ -45,12 +43,13 @@ class FirstFragment : Fragment() {
     private lateinit var gManager: GridLayoutManager
     private var marvelCharsItems: MutableList<MarvelChars> = mutableListOf<MarvelChars>()
 
+    private val firstFragmentViewModel by viewModels<FragmentViewModel>()
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
 
         binding = FragmentFirstBinding.inflate(
             layoutInflater, container, false
@@ -64,32 +63,28 @@ class FirstFragment : Fragment() {
         )
 
         gManager = GridLayoutManager(requireActivity(), 2)
-        return binding.root
 
+
+        firstFragmentViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.lyMain.visibility = View.GONE
+                binding.lyMainCopia.visibility = View.VISIBLE
+            } else {
+                binding.lyMain.visibility = View.VISIBLE
+                binding.lyMainCopia.visibility = View.GONE
+            }
+        }
+        lifecycleScope.launch {
+            firstFragmentViewModel.chargingData()
+        }
+
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart();
 
-        lifecycleScope.launch(Dispatchers.Main) {
-            getDataStore().collect {user->
-                //binding.txtFilter.text = it
-                Log.d("UCE","nombre: "+user.name)
-                Log.d("UCE",user.email)
-                Log.d("UCE",user.session)
-            }
-        }
-
-        val names = arrayListOf<String>("A", "B", "C", "D", "E")
-
-        val adapter1 = ArrayAdapter<String>(
-            requireActivity(),
-            android.R.layout.simple_spinner_item,
-            names
-        )
-
-//        binding.spinner.adapter = adapter1
-        chargeDataRVInit(limit, offset)
+        chargeDataRVInit(10, 0)
 
         binding.rvSwipe.setOnRefreshListener {
             chargeDataRVAPI(limit = limit, offset = offset)
@@ -148,23 +143,14 @@ class FirstFragment : Fragment() {
         }
     }
 
-    private fun getDataStore() =
-        requireActivity().dataStore.data.map { prefs ->
-            UserDataStore(
-                name = prefs[stringPreferencesKey("usuario")].orEmpty(),
-                email = prefs[stringPreferencesKey("email")].orEmpty(),
-                session = prefs[stringPreferencesKey("session")].orEmpty(),
-            )
-        }
-
     fun sendMarvelItem(item: MarvelChars) {
-        //Intent(contexto de la activity, .class de la activity)
         val i = Intent(requireActivity(), DetailsMarvelItem::class.java)
         i.putExtra("item", item)//mandamos los items a la otra activity
         startActivity(i)
     }
 
     fun saveMarvelItem(item: MarvelChars): Boolean {
+        Log.d("AAAAAA", "ENTRO CHARGEDATA")
         lifecycleScope.launch(Dispatchers.Main) {
             withContext(Dispatchers.IO) {
                 DispositivosMoviles
@@ -173,7 +159,7 @@ class FirstFragment : Fragment() {
                     .insertMarvelCharacter(listOf(item.getMarvelCharsDB()))
             }
         }
-        return item !== null
+        return item != null
     }
 
     fun chargeDataRVAPI(offset: Int, limit: Int) {
@@ -188,24 +174,15 @@ class FirstFragment : Fragment() {
             binding.rvMarvelChars.apply {
                 this.adapter = rvAdapter;
                 this.layoutManager = gManager;
-                //lmanager.scrollToPositionWithOffset(pos, 10)
             }
             this@FirstFragment.offset = offset + limit
         }
     }
 
-    private fun chargeDataRVInit(offset: Int, limit: Int) {
+    fun chargeDataRVInit(offset: Int, limit: Int) {
         if (Metodos().isOnline(requireActivity())) {
             lifecycleScope.launch(Dispatchers.Main) {
                 marvelCharsItems = withContext(Dispatchers.IO) {
-//                var items = MarvelLogic().getAllMarvelCharDB().toMutableList()
-//                if (items.isEmpty()) {
-//                    items = (MarvelLogic().getAllMarvelChars(
-//                        0, page * 3
-//                    ))
-//                    MarvelLogic().insertMarvelCharstoDB(items)
-//                }
-//                return@withContext items
                     return@withContext MarvelLogic().getInitChars(offset, limit)
                 }
                 rvAdapter.items = marvelCharsItems
@@ -218,6 +195,5 @@ class FirstFragment : Fragment() {
             }
         }
     }
-
 }
 

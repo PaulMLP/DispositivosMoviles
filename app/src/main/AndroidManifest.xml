@@ -23,6 +23,36 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.LocationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.BiometricActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.FCM_Presentation"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.CameraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.SecondActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.ResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.DetailsMarvelItem"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.ProgressActivity"
             android:exported="false" />
         <activity
@@ -39,28 +69,21 @@
             android:name=".ui.utilities.BroadcasterNotifications"
             android:enabled="true" />
 
-        <activity
-            android:name=".ui.activities.NotificationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.CameraActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.BiometricActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.ResultActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.DetailsMarvelItem"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.SecondActivity"
-            android:exported="false" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#333"
     tools:context=".ui.activities.BiometricActivity">
 
     <LinearLayout
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:visibility="gone"
+android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,28 +26,30 @@
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:text="Autenticacion biométrica"
+            android:textColor="@color/white"
             android:textSize="40sp" />
 
         <ImageView
             android:id="@+id/boton"
             android:layout_width="81dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_fingerprint_24" />
+            android:src="@drawable/baseline_fingerprint_24"
+            app:tint="@color/white" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lyMainCopia"
-        app:auto_start="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        app:auto_start="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-           <include layout="@layout/shimmer_layout_biometric"/>
+        <include layout="@layout/shimmer_layout_biometric" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

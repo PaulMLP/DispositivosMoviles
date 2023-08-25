@@ -1,14 +1,17 @@
 <resources>
     <string name="app_name">DispositivosMoviles</string>
-    <string name="nombre_app">Pedidos Online</string>
+    <string name="nombre_app">App Dispositivos Moviles</string>
     <string name="bienvenida">¡Hola! Es bueno verte nuevamente</string>
+    <string name="registro">Ingresa los datos para registrarte</string>
     <string name="ingreso_boton">Ingresar</string>
-    <string name="mensaje_redes">O conéctese usando las redes sociales</string>
+    <string name="registro_boton">Registrarse</string>
+    <string name="mensaje_redes">Visitanos en nuestras redes sociales</string>
     <string name="mensaje_olvido_contrasenia">¿Olvido su contraseha?</string>
-    <string name="text_label_1">ETIQUETA 1</string>
-    <string name="text_label_2">ETIQUETA 2</string>
-    <string name="text_label_3">ETIQUETA 3</string>
+    <string name="text_menu_1">Comics</string>
+    <string name="text_menu_2">Filtro</string>
+    <string name="text_menu_3">Anime</string>
     <string name="title_fragmentF">First Fragment</string>
     <string name="title_fragmentS">Second Fragment</string>
-    <string name="title_fragmentT">Third Fragment</string>
+    <string name="title_fragmentT">Mi Lista de Anime</string>
+    <string name="default_notification_channel_id">Messaging</string>
 </resources>

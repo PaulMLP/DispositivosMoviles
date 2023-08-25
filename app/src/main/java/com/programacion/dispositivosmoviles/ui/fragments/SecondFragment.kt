@@ -1,26 +1,25 @@
 package com.programacion.dispositivosmoviles.ui.fragments
 
-import android.R
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.programacion.dispositivosmoviles.data.marvel.MarvelChars
 import com.programacion.dispositivosmoviles.data.marvel.getMarvelCharsDB
-import com.programacion.dispositivosmoviles.databinding.FragmentFirstBinding
 import com.programacion.dispositivosmoviles.databinding.FragmentSecondBinding
 import com.programacion.dispositivosmoviles.logic.marvelLogic.MarvelLogic
 import com.programacion.dispositivosmoviles.ui.activities.DetailsMarvelItem
 import com.programacion.dispositivosmoviles.ui.adapters.MarvelAdapter
 import com.programacion.dispositivosmoviles.ui.utilities.DispositivosMoviles
+import com.programacion.dispositivosmoviles.ui.viewmodels.FragmentViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -35,16 +34,15 @@ class SecondFragment : Fragment() {
     private lateinit var gManager: GridLayoutManager
     private var marvelCharsItems: MutableList<MarvelChars> = mutableListOf<MarvelChars>()
 
+    private val firstFragmentViewModel by viewModels<FragmentViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         binding = FragmentSecondBinding.inflate(
             layoutInflater, container, false
         )
-
 
         lmanager = LinearLayoutManager(
             requireActivity(),
@@ -53,23 +51,26 @@ class SecondFragment : Fragment() {
         )
 
         gManager = GridLayoutManager(requireActivity(), 2)
-        return binding.root
 
+        firstFragmentViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.lyMain.visibility = View.GONE
+                binding.lyMainCopia.visibility = View.VISIBLE
+            } else {
+                binding.lyMain.visibility = View.VISIBLE
+                binding.lyMainCopia.visibility = View.GONE
+            }
+        }
+        lifecycleScope.launch {
+            firstFragmentViewModel.chargingData()
+        }
+
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart();
 
-
-        val names = arrayListOf<String>("A", "B", "C", "D", "E")
-
-        val adapter1 = ArrayAdapter<String>(
-            requireActivity(),
-            R.layout.simple_spinner_item,
-            names
-        )
-
-        binding.spinner.adapter = adapter1
         chargeDataRV(5)
 
         binding.rvSwipe.setOnRefreshListener {
@@ -112,22 +113,8 @@ class SecondFragment : Fragment() {
 
             rvAdapter.replaceListAdapter(newItems)
         }
-
     }
 
-    fun corrotine() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            var name = "Paul"
-
-            name = withContext(Dispatchers.IO)
-            {
-                name = "Leonardo"
-                return@withContext name
-            }
-
-            binding.cardView.radius
-        }
-    }
 
     fun sendMarvelItem(item: MarvelChars) {
         //Intent(contexto de la activity, .class de la activity)
@@ -155,16 +142,10 @@ class SecondFragment : Fragment() {
             marvelCharsItems = withContext(Dispatchers.IO) {
                 return@withContext MarvelLogic().getAllMarvelChars(0, 99)
             }
-
-
             rvAdapter.items = marvelCharsItems
-
             binding.rvMarvelChars.apply {
                 this.adapter = rvAdapter;
                 this.layoutManager = gManager;
-
-
-                //lmanager.scrollToPositionWithOffset(pos, 10)
             }
         }
         page++

@@ -32,6 +32,11 @@ class CameraActivity : AppCompatActivity() {
                 Intent.createChooser(shareIntent, "Compartir")
             )
         }
+
+        binding.btnHome.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private val cameraResult = registerForActivityResult(StartActivityForResult()) { result ->

@@ -26,7 +26,7 @@ class NotificationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnNotification.setOnClickListener {
-            //createNotificationChannel()
+            createNotificationChannel()
             sendNotification()
         }
 
@@ -49,7 +49,7 @@ class NotificationActivity : AppCompatActivity() {
 
     private val CHANNEL: String = "Notificaciones"
 
-    private fun createNotificationChannel(time: Long) {
+    private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         val name = "Aviso"
@@ -75,7 +75,7 @@ class NotificationActivity : AppCompatActivity() {
         )
         val noti = NotificationCompat.Builder(this, CHANNEL).apply {
             setContentIntent(notifyPendingIntent)
-            setContentTitle("Primera Notificacion")
+            setContentTitle("Abrir Camara")
             setContentText("Esta es una notificacion para recordarte que estamos trabajando en android")
             setSmallIcon(R.drawable.baseline_message_24)
             priority = NotificationCompat.PRIORITY_DEFAULT

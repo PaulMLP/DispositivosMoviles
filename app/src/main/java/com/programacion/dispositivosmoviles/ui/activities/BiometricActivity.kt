@@ -50,32 +50,32 @@ class BiometricActivity : AppCompatActivity() {
         }
     }
 
-
     @RequiresApi(Build.VERSION_CODES.R)
     private fun autenticateBiometric() {
 
-        if (checkBiometric()) {
+        if(checkBiometric()) {
             val executor = ContextCompat.getMainExecutor(this)
 
             val biometricPrompt = BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Autenticacion requerida")
+                .setTitle("Autenticación requerida")
                 .setSubtitle("Ingrese su huella digital")
-                .setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
+                .setAllowedAuthenticators(BIOMETRIC_STRONG)
+                .setNegativeButtonText("Cancelar")
                 .build()
 
-            //Ejecutor: para lanzar cosas del sistema
-            val biometricManager = BiometricPrompt(this, executor,
+            val biometricManager = BiometricPrompt(
+                this,
+                executor,
                 object : BiometricPrompt.AuthenticationCallback() {
-                    override fun equals(other: Any?): Boolean {
-                        return super.equals(other)
-                    }
-
                     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                         super.onAuthenticationError(errorCode, errString)
                     }
 
                     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                         super.onAuthenticationSucceeded(result)
+                        startActivity(Intent(
+                            this@BiometricActivity,
+                            HomeActivity::class.java))
                     }
 
                     override fun onAuthenticationFailed() {
@@ -87,44 +87,46 @@ class BiometricActivity : AppCompatActivity() {
             Snackbar.make(
                 binding.boton,
                 "No existen los requisitos necesarios",
-                Snackbar.LENGTH_LONG
-            )
-                .show()
+                Snackbar.LENGTH_LONG).show()
         }
     }
 
+
+
+
+
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun checkBiometric(): Boolean {
-        var returnValid: Boolean = false
+    private fun checkBiometric() : Boolean{
         val biometricManager = BiometricManager.from(this)
-        when (biometricManager.canAuthenticate(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)) {
+        var returnValid  = false
+
+        when(biometricManager.canAuthenticate(
+            BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+        )) {
+            //hay hw y huella
             BiometricManager.BIOMETRIC_SUCCESS -> {
-                Log.d("MY_APP_TAG", "App can authenticate using biometrics.")
                 returnValid = true
             }
-
+            // no hay hw
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
-                Log.e("MY_APP_TAG", "No biometric features available on this device.")
                 returnValid = false
             }
-
+            // hay problema con el hw
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
-                Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
                 returnValid = false
             }
-
+            // hay hw pero no huella
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-                // Prompts the user to create credentials that your app accepts.
-                val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
-                    putExtra(
-                        Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
-                        BIOMETRIC_STRONG or DEVICE_CREDENTIAL
-                    )
-                }
-                startActivity(enrollIntent)
-                returnValid = false
+                val intentPrompt = Intent(Settings.ACTION_BIOMETRIC_ENROLL)
+                intentPrompt.putExtra(
+                    Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                    BIOMETRIC_STRONG
+                )
+                startActivity(intentPrompt)
+                returnValid = true
             }
         }
         return returnValid
     }
+
 }

@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.MainActivity">
+    tools:context=".ui.activities.RegisterActivity">
 
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="144dp"
         android:layout_height="122dp"
-        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.123"
         app:srcCompat="@drawable/dispositivosmoviles" />
 
     <EditText
@@ -34,17 +35,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelContrasenia" />
 
-    <TextView
-        android:id="@+id/mensajeRedes"
-        style="@style/mensaje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/mensaje_redes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnIngreso" />
 
     <TextView
         android:id="@+id/nombreApp"
@@ -52,14 +42,14 @@
         android:layout_width="308dp"
         android:layout_height="40dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="28dp"
         android:gravity="left"
         android:longClickable="true"
         android:text="@string/nombre_app"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textCorreo"
@@ -71,19 +61,6 @@
         android:text="Correo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mensajeBienvenida" />
-
-    <TextView
-        android:id="@+id/mensaje_recuperar_contrasenia"
-        style="@style/mensaje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/mensaje_olvido_contrasenia"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLoginTwitter"
-        app:layout_constraintVertical_bias="0.058" />
 
     <EditText
         android:id="@+id/name"
@@ -101,57 +78,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCorreo" />
 
+
     <TextView
         android:id="@+id/mensajeBienvenida"
         style="@style/mensaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/bienvenida"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/registro"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombreApp" />
 
     <Button
-        android:id="@+id/btnLoginFacebook"
-        style="@style/ButtonFacebook"
-        android:layout_width="@dimen/buttom_widht"
-        android:layout_height="@dimen/buttom_alternate_height"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="48dp"
-        android:drawableLeft="@drawable/facebook"
-        android:text="Facebook"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mensajeRedes"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/btnIngreso"
+        android:id="@+id/btnRegistro"
         style="@style/ButtonIngreso"
         android:layout_width="300dp"
         android:layout_height="@dimen/buttom_height"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="48dp"
         android:gravity="center"
-        android:text="@string/ingreso_boton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pass"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/labelRegistro"
-        style="@style/etiquetas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="44dp"
-        android:text="Registrese"
+        android:text="@string/registro_boton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLoginFacebook"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pass"
+        app:layout_constraintVertical_bias="0.05"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/labelContrasenia"
@@ -159,24 +112,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="352dp"
         android:text="Contraseña"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
-    <Button
-        android:id="@+id/btnLoginTwitter"
-        style="@style/ButtonTwitter"
-        android:layout_width="@dimen/buttom_widht"
-        android:layout_height="@dimen/buttom_alternate_height"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="24dp"
-        android:drawableLeft="@drawable/twitter"
-        android:text="Twitter"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mensajeRedes"
-        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

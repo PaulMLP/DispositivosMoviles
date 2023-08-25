@@ -9,6 +9,7 @@ import com.programacion.dispositivosmoviles.ui.fragments.SecondFragment
 import com.programacion.dispositivosmoviles.ui.fragments.ThirdFragment
 import com.programacion.dispositivosmoviles.ui.utilities.FragmentsManager
 
+@Suppress("UNUSED_EXPRESSION")
 class SecondActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySecondBinding
 

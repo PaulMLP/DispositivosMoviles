@@ -78,7 +78,7 @@ dependencies {
     //Ubicacion
     implementation("com.google.android.gms:play-services-location:21.0.1")
 
-    implementation ("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.10.1")
 
     //View Model
     // Fragment
@@ -91,13 +91,16 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
 
     //Biometric
-    implementation( "androidx.biometric:biometric-ktx:1.2.0-alpha05")
+    implementation("androidx.biometric:biometric-ktx:1.2.0-alpha05")
 
+    //Shimmer
     implementation("com.facebook.shimmer:shimmer:0.1.0@aar")
 
     //FireBase
     implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
     implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
     implementation("com.google.firebase:firebase-auth-ktx")
+
+    //Cloud
+    implementation 'com.google.firebase:firebase-messaging:23.2.1'
 }
